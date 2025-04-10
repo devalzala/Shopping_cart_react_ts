@@ -1,0 +1,32 @@
+name: Build and Deploy React App
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on pushes to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # You can also use windows-latest if you want a Windows runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Checks out the code in the repository
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Replace with your desired Node.js version
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./frontend  # Adjust if needed based on your project structure
+
+    - name: Build the app
+      run: npm run build
+      working-directory: ./frontend  # Adjust if needed
+
+    - name: Deploy to Hosting (Optional)
+      run: |
+        # Add deployment steps here if needed
+        echo "Deploying build..."
